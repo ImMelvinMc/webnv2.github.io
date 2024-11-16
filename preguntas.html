@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas para Mi Amor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #ffb6c1, #ffdde1);
+            color: #333;
+            position: relative;
+            overflow: auto; /* Asegura que el contenido sea desplazable */
+            height: 100vh; /* Ajusta la altura de la ventana del navegador */
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            padding: 30px 0;
+            border-bottom: 2px solid #f8a1b2;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: #ff4b6e;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animación de estrellas y corazones */
+        .stars, .hearts {
+            position: fixed; /* Cambié de absolute a fixed para que no bloqueen el scroll */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .stars div, .hearts div {
+            position: absolute;
+            background-color: white;
+            opacity: 0.7;
+            animation: moveStars 10s infinite linear;
+        }
+
+        .hearts div {
+            background: url('https://www.pngrepo.com/png/19497/180/heart.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        .stars div {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #ffffff;
+        }
+
+        /* Movimiento para las estrellas */
+        @keyframes moveStars {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(1000px, 1000px);
+            }
+        }
+
+        /* Movimiento para los corazones */
+        @keyframes moveHearts {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-1000px, 1000px);
+            }
+        }
+
+        .answer-options {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn-answer {
+            padding: 12px 25px;
+            margin: 10px;
+            color: white;
+            background-color: #ff4b6e;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-answer:hover {
+            background-color: #ff6f91;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-submit, .btn-reset {
+            padding: 12px 30px;
+            margin-top: 30px;
+            color: white;
+            background-color: #ff4b6e;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover, .btn-reset:hover {
+            background-color: #ff6f91;
+        }
+
+        .result {
+            display: none;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        footer {
+            padding: 15px;
+            background-color: #ff4b6e;
+            color: white;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 2px solid #f8a1b2;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Estilo para la animación de carga */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff4b6e;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilo del mensaje */
+        .message {
+            display: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff4b6e;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="stars"></div>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+        <header>
+            <h1>Preguntas para Mi Amor</h1>
+        </header>
+
+        <!-- Pregunta 1 -->
+        <div class="question" id="question1">
+            <p>¿Cuál es mi color favorito?</p>
+        </div>
+        <div class="answer-options" id="answers1">
+            <button class="btn-answer" onclick="selectAnswer(1, 'Negro')">Negro</button>
+            <button class="btn-answer" onclick="selectAnswer(1, 'Rojo')">Rojo</button>
+            <button class="btn-answer" onclick="selectAnswer(1, 'Azul')">Azul</button>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="question" id="question2" style="display: none;">
+            <p>¿Qué juego me gusta más?</p>
+        </div>
+        <div class="answer-options" id="answers2" style="display: none;">
+            <button class="btn-answer" onclick="selectAnswer(2, 'Minecraft')">Minecraft</button>
+            <button class="btn-answer" onclick="selectAnswer(2, 'Free Fire')">Free Fire</button>
+            <button class="btn-answer" onclick="selectAnswer(2, 'FC Mobile')">FC Mobile</button>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="question" id="question3" style="display: none;">
+            <p>¿Qué me gusta más de ti? :)</p>
+        </div>
+        <div class="answer-options" id="answers3" style="display: none;">
+            <button class="btn-answer" onclick="selectAnswer(3, 'Tu voz')">Tu voz</button>
+            <button class="btn-answer" onclick="selectAnswer(3, 'Tu sonrisa')">Tu sonrisa</button>
+            <button class="btn-answer" onclick="selectAnswer(3, 'Tu carita')">Tu carita</button>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="question" id="question4" style="display: none;">
+            <p>¿Qué no me gusta de mí? :v</p>
+        </div>
+        <div class="answer-options" id="answers4" style="display: none;">
+            <button class="btn-answer" onclick="selectAnswer(4, 'Mi voz')">Mi voz</button>
+            <button class="btn-answer" onclick="selectAnswer(4, 'Mis manos')">Mis manos</button>
+            <button class="btn-answer" onclick="selectAnswer(4, 'Mis pies')">Mis pies</button>
+        </div>
+
+        <!-- Botón de Ver Resultados -->
+        <button class="btn-submit" id="btn-submit" style="display: none;" onclick="showResults()">Ver Respuestas Seleccionadas</button>
+
+        <!-- Botón de Volver al Inicio -->
+        <button class="btn-reset" id="btn-reset" style="display: none;" onclick="goToHomePage()">Volver al Inicio</button>
+
+        <!-- Animación de carga -->
+        <div class="spinner" id="spinner" style="display: none;"></div>
+
+        <!-- Resultados -->
+        <div class="result" id="result" style="display: none;">
+            <p id="answer1"></p>
+            <p id="answer2"></p>
+            <p id="answer3"></p>
+            <p id="answer4"></p>
+        </div>
+
+        <!-- Mensaje -->
+        <div class="message" id="message">
+            Tómele cap y mándala :)
+        </div>
+
+        <footer>
+            <p>Te amo mucho 😘</p>
+        </footer>
+    </div>
+
+    <script>
+        // Variables para almacenar las respuestas
+        let answers = [];
+
+        // Función para manejar la selección de respuestas
+        function selectAnswer(questionNum, answer) {
+            answers[questionNum - 1] = answer;
+            showNextQuestion(questionNum);
+        }
+
+        // Función para mostrar la siguiente pregunta
+        function showNextQuestion(currentQuestion) {
+            const nextQuestion = currentQuestion + 1;
+
+            // Ocultar la pregunta y opciones actuales
+            document.getElementById(`question${currentQuestion}`).style.display = "none";
+            document.getElementById(`answers${currentQuestion}`).style.display = "none";
+
+            // Mostrar la siguiente pregunta y opciones
+            if (document.getElementById(`question${nextQuestion}`)) {
+                document.getElementById(`question${nextQuestion}`).style.display = "block";
+                document.getElementById(`answers${nextQuestion}`).style.display = "block";
+            } else {
+                // Si no hay más preguntas, mostrar el botón de ver resultados
+                document.getElementById("btn-submit").style.display = "block";
+            }
+        }
+
+        // Función para mostrar los resultados
+        function showResults() {
+            // Mostrar el mensaje después de un segundo
+            setTimeout(function() {
+                document.getElementById("message").style.display = "block";
+            }, 1000);
+
+            // Mostrar los resultados de las respuestas
+            document.getElementById("answer1").textContent = `Respuesta 1: ${answers[0]}`;
+            document.getElementById("answer2").textContent = `Respuesta 2: ${answers[1]}`;
+            document.getElementById("answer3").textContent = `Respuesta 3: ${answers[2]}`;
+            document.getElementById("answer4").textContent = `Respuesta 4: ${answers[3]}`;
+            
+            // Mostrar el resultado
+            document.getElementById("result").style.display = "block";
+            document.getElementById("btn-reset").style.display = "block";
+            document.getElementById("btn-submit").style.display = "none";
+        }
+
+        // Función para regresar al inicio
+        function goToHomePage() {
+            location.reload();
+        }
+
+        // Generar animación de estrellas y corazones
+        function generateStarsAndHearts() {
+            const starCount = 100;
+            const heartCount = 50;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement("div");
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                document.getElementById("stars").appendChild(star);
+            }
+
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement("div");
+                heart.style.top = `${Math.random() * 100}vh`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                heart.style.animationName = "moveHearts";
+                document.getElementById("hearts").appendChild(heart);
+            }
+        }
+
+        // Iniciar animación
+        generateStarsAndHearts();
+    </script>
+</body>
+</html>

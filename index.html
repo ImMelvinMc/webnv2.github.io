@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #ffb6c1, #ffdde1);
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            padding: 30px 0;
+            border-bottom: 2px solid #f8a1b2;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: #ff4b6e;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            padding: 40px 0;
+            line-height: 1.8;
+        }
+
+        .main-content h2 {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            color: #ff6f91;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin-top: 20px;
+            color: white;
+            background-color: #ff4b6e;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff6f91;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            padding: 15px;
+            background-color: #ff4b6e;
+            color: white;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 2px solid #f8a1b2;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Estilos para los corazones */
+        .heart {
+            position: fixed;
+            bottom: -10px;
+            font-size: 20px;
+            color: #ff6f91;
+            opacity: 0.8;
+            animation: floatUp 5s linear infinite, fadeOut 5s linear infinite;
+        }
+
+        /* Animación para que los corazones floten hacia arriba */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100vh);
+            }
+        }
+
+        /* Animación para que los corazones desaparezcan gradualmente */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Para Mi niña</h1>
+        </header>
+
+        <div class="main-content">
+            <h2>¡Es una gran personita señorita hemosha !</h2>
+            <p>Esta página está dedicada a ti, mi enanita. Cada momento que compartimos es único y especial. Quiero que siempre recuerdes lo importante que eres para mí. Gracias por ser la persona más maravillosa en mi vida.</p>
+
+            <a href="agradecimiento.html" class="btn">Ver Mensaje Especial</a>
+        </div>
+
+        <footer>
+            <p>Ti amo mi amoshita <3</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+
+            // Ubicación inicial aleatoria para cada corazón
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+
+            // Añadir el corazón al cuerpo de la página
+            document.body.appendChild(heart);
+
+            // Eliminar el corazón después de un tiempo
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Generar corazones a intervalos regulares
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agradecimiento Especial</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #ffb6c1, #ffdde1);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff4b6e;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .btn-go-to-questions {
+            padding: 15px 25px;
+            margin-top: 30px;
+            font-size: 1.2rem;
+            background-color: #ff4b6e;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-go-to-questions:hover {
+            background-color: #ff6f91;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: #ff4b6e;
+            color: white;
+        }
+
+        /* Estilos para los corazones */
+        .heart {
+            position: fixed;
+            bottom: -10px;
+            font-size: 20px;
+            color: #ff6f91;
+            opacity: 0.8;
+            animation: floatUp 5s linear infinite, fadeOut 5s linear infinite;
+        }
+
+        /* Animación para que los corazones floten hacia arriba */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100vh);
+            }
+        }
+
+        /* Animación para que los corazones desaparezcan gradualmente */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gracias por todo, mi amoshita</h1>
+        <p>Quiero agradecerte por estar siempre a mi lado, por tu apoyo, por las cosas q dices q me hacen reir jeje y por hacerme sentir tan afortunado de tenerte. Te aprecio muusho mi niña. 😘</p>
+        
+        <a href="preguntas.html" class="btn-go-to-questions">Ir a las Preguntas Especiales</a>
+    </div>
+
+    <footer>
+        <p>Ti amo mi amoshita <3</p>
+    </footer>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+
+            // Ubicación inicial aleatoria para cada corazón
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+
+            // Añadir el corazón al cuerpo de la página
+            document.body.appendChild(heart);
+
+            // Eliminar el corazón después de un tiempo
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Generar corazones a intervalos regulares
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
